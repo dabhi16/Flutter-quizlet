@@ -1,4 +1,4 @@
-# Flutter-quizlet (under development)
+# Flutter-quizlet
 
 ## Table of contents
 * [General info](#general-info)
@@ -7,6 +7,12 @@
 * [Screenshots](#screenshots)
 
 ## General info
+Quizlet is a true of false quiz app. This app consists of some questions related to "Flutter".
+
+Features
+* Track the answers, whether the answer is correct or wrong.
+* Clean interfac.
+
 
 
 ## Technologies
@@ -18,4 +24,7 @@ Tools used in this project:
 * Android Studio
 
 ## Screenshots
-The project is still in development.
+![Screenshot1](/screenshots/screenshot1.png)
+![Screenshot2](/screenshots/screenshot2.png)
+![Screenshot3](/screenshots/screenshot3.png)
+![Screenshot4](/screenshots/screenshot4.png)

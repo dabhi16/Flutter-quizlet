@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
+import 'quizBrain.dart';
+
+QuizBrain quizBrain = QuizBrain();
 void main() {
   runApp(const Quizlet());
 }
@@ -31,21 +35,70 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreTracker = [];
+
+  void checkAnswer(bool userAnswer) {
+    setState(() {
+      if (quizBrain.isFinished()) {
+        Alert(
+          context: context,
+          type: AlertType.warning,
+          title: "THE END",
+          desc: "Hurray!!! You have reached the end.",
+          buttons: [
+            DialogButton(
+              child: const Text(
+                "Play Again",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+              gradient: const LinearGradient(
+                colors: [
+                  Color(0xff69ff97),
+                  Color(0xff00e4ff),
+                ],
+              ),
+            )
+          ],
+        ).show();
+        quizBrain.reset();
+        scoreTracker.clear();
+      } else {
+        if (userAnswer == quizBrain.getAnswer()) {
+          scoreTracker.add(
+            const Icon(
+              Icons.check,
+              color: Color(0xff70e000),
+            ),
+          );
+        } else {
+          scoreTracker.add(
+            const Icon(
+              Icons.close,
+              color: Color(0xffef233c),
+            ),
+          );
+        }
+        quizBrain.nextQuestion();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Expanded(
+        Expanded(
           flex: 5,
           child: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question goes ',
+                quizBrain.getQuestion(),
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 25.0,
                   color: Colors.white,
                 ),
@@ -65,9 +118,11 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xff70e000),
+                primary: const Color(0xff70e000),
               ),
-              onPressed: () {},
+              onPressed: () {
+                checkAnswer(true);
+              },
             ),
           ),
         ),
@@ -83,11 +138,17 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xffef233c),
+                primary: const Color(0xffef233c),
               ),
-              onPressed: () {},
+              onPressed: () {
+                checkAnswer(false);
+              },
             ),
           ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: scoreTracker,
         ),
       ],
     );
