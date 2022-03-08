@@ -7,7 +7,7 @@
 * [Screenshots](#screenshots)
 
 ## General info
-Quizlet is a true of false quiz app. This app consists of some questions related to "Flutter".
+Quizlet is a true or false quiz app. This app consists of some questions related to "Flutter".
 
 Features
 * Track the answers, whether the answer is correct or wrong.
